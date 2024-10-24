@@ -53,7 +53,7 @@ import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 internal fun App() = AppTheme {
-    CheckForUpdateDialog(forceUpdate = true)
+    CheckForUpdateDialog(forceUpdate = false)
     Column(
         modifier = Modifier
             .fillMaxSize()

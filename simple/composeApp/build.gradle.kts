@@ -80,8 +80,8 @@ android {
         targetSdk = 35
 
         applicationId = "com.hardihood.two_square_game"
-        versionCode = 41
-        versionName = "2.0.3"
+        versionCode = 44
+        versionName = "2.0.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
