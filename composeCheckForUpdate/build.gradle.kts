@@ -41,19 +41,19 @@ tasks.withType<PublishToMavenRepository> {
 
 
 
-extra["groupId"] = "com.example"
-extra["artifactId"] = "your-artifact-id"
+extra["groupId"] = "io.github.the-best-is-best"
+extra["artifactId"] = "compose-check-for-update"
 extra["version"] = "1.0.0"
-extra["packageName"] = ""
-extra["packageUrl"] = ""
-extra["packageDescription"] = ""
+extra["packageName"] = "ComposeCheckForUpdate"
+extra["packageUrl"] = "https://github.com/the-best-is-best/checkForUpdateCompose"
+extra["packageDescription"] = "The ComposeCheckForUpdate package provides a seamless solution for implementing update checking functionality in Jetpack Compose applications on both Android and iOS platforms. This package simplifies the process of checking for app updates, ensuring that users always have access to the latest features and improvements."
 extra["system"] = "GITHUB"
-extra["issueUrl"] = ""
-extra["connectionGit"] = ".git"
+extra["issueUrl"] = "https://github.com/the-best-is-best/KMMAdmob/issues"
+extra["connectionGit"] = "https://github.com/the-best-is-best/KMMAdmob.git"
 
-extra["developerName"] = ""
-extra["developerNameId"] = ""
-extra["developerEmail"] = ""
+extra["developerName"] = "Michelle Raouf"
+extra["developerNameId"] = "MichelleRaouf"
+extra["developerEmail"] = "eng.michelle.raouf@gmail.com"
 
 
 mavenPublishing {
