@@ -6,7 +6,6 @@ androidx-activityCompose = "1.9.3"
 androidx-uiTest = "1.7.4"
 maven-publish = "0.29.0"
 appUpdateKtx = "2.1.0"
-coreKtx = "1.10.3"
 
 
 
@@ -26,3 +25,4 @@ compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }

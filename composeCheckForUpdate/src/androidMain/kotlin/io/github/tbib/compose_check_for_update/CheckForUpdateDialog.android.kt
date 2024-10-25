@@ -19,7 +19,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 
 @Composable
-actual fun CheckForUpdateDialog(forceUpdate: Boolean) {
+actual fun CheckForUpdateDialog(forceUpdate: Boolean, title: String?, message: String?) {
     var showUpdateDialog by remember { mutableStateOf(false) }
 
     val appUpdateManager: AppUpdateManager =
@@ -45,33 +45,40 @@ actual fun CheckForUpdateDialog(forceUpdate: Boolean) {
     if (showUpdateDialog) {
         UpdateDialog(
             isForceUpdate = forceUpdate,
+            title = title,
+            message = message,
             onUpdate = {
                 startUpdateFlow(AndroidCheckForUpdate.getActivity(), appUpdateManager, forceUpdate)
             },
             onCancel = {
-                if (forceUpdate) {
-                    (AndroidCheckForUpdate.getActivity()).finish() // Close the app if the update is mandatory
-                } else {
                     showUpdateDialog = false // Dismiss the dialog if it's not a forced update
-                }
             }
         )
     }
 }
 
 @Composable
-private fun UpdateDialog(isForceUpdate: Boolean, onUpdate: () -> Unit, onCancel: () -> Unit) {
+private fun UpdateDialog(
+    isForceUpdate: Boolean,
+    onUpdate: () -> Unit,
+    onCancel: () -> Unit,
+    title: String? = null,
+    message: String? = null
+) {
+    val titleDialog = title ?: "Update Available"
+    val messageDialog = message ?: if (isForceUpdate)
+        "A new update is required to continue using this app."
+    else
+        "A new update is available. Would you like to update now?"
+
     AlertDialog(
         onDismissRequest = {
             if (!isForceUpdate) onCancel()
         },
-        title = { Text(text = "Update Available") },
+        title = { Text(text = titleDialog) },
         text = {
             Text(
-                text = if (isForceUpdate)
-                    "A new update is required to continue using this app."
-                else
-                    "A new update is available. Would you like to update now?"
+                text = messageDialog
             )
         },
         confirmButton = {

@@ -15,3 +15,5 @@ Pods/
 *.jks
 *yarn.lock
 /simple/composeApp/release/
+/simple/iosApp/Podfile.lock
+/simple/iosApp/Podfile

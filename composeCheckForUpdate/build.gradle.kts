@@ -15,6 +15,7 @@ plugins {
     id("maven-publish")
     id("signing")
     alias(libs.plugins.maven.publish)
+    alias(libs.plugins.kotlin.cocoapods)
 }
 
 
@@ -132,7 +133,41 @@ kotlin {
         }
     }
 
+    cocoapods {
+        // Required properties
+        // Specify the required Pod version here. Otherwise, the Gradle project version is used.
+        version = "1.0"
+        summary = "Some description for a Kotlin/Native module"
+        homepage = "Link to a Kotlin/Native module homepage"
+
+        name = "composeCheckForUpdate"
+
+        framework {
+            baseName = "composeCheckForUpdate"
+
+            isStatic = false
+        }
+        noPodspec()
+        ios.deploymentTarget = "12.0"
+        pod("KUpdater") {
+            version = "0.1.5"
+            extraOpts += listOf("-compiler-option", "-fmodules")
+
+        }
+    }
+
     sourceSets {
+        all {
+            languageSettings.apply {
+                progressiveMode = true
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                if (name.lowercase().contains("ios")) {
+                    optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                    optIn("kotlinx.cinterop.BetaInteropApi")
+                }
+            }
+        }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
