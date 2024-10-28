@@ -17,6 +17,8 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 @Composable
 actual fun CheckForUpdateDialog(forceUpdate: Boolean, title: String?, message: String?) {
@@ -121,6 +123,22 @@ private fun startUpdateFlow(
                 Toast.makeText(activity, "App updated. Please restart the app.", Toast.LENGTH_LONG)
                     .show()
             }
+        }
+    }
+}
+
+actual suspend fun isUpdateAvailable(): Boolean {
+    val appUpdateManager: AppUpdateManager =
+        AppUpdateManagerFactory.create(AndroidCheckForUpdate.getActivity())
+    val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+    return suspendCancellableCoroutine { continuation ->
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            val isAvailable =
+                appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+            continuation.resume(isAvailable)
+        }.addOnFailureListener {
+            continuation.resume(false) // Return false if there's an error
         }
     }
 }

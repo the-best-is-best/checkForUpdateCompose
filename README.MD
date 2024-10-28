@@ -20,13 +20,13 @@ KAdmob is available on `mavenCentral()`.
 ## Install
 
 ```kotlin
-implementation("io.github.the-best-is-best:compose-check-for-update:1.0.0")
+implementation("io.github.the-best-is-best:compose-check-for-update:1.0.1")
 ```
 
 ## Need add this in pod file if not exist run ` pod init `
 
 ```pod
-  pod 'KUpdater' , '0.1.5'
+  pod 'KUpdater' , '0.1.6'
 ```
 
 ## How to use it
@@ -58,5 +58,18 @@ AndroidCheckForUpdate.initialization(this)
     "A new update is available. Would you like to update now?"
      **/
 )
+```
+
+#### In version 1.0.1 can check new version in any function not compose and return true or false
+
+```kotlin
+  val scope = rememberCoroutineScope()
+
+LaunchedEffect(Unit) {
+    scope.launch {
+        val isUpdateAvailable = isUpdateAvailable()
+        println("new update available $isUpdateAvailable")
+    }
+}
 ```
 

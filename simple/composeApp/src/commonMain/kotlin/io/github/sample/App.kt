@@ -22,9 +22,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,18 +48,27 @@ import composecheckforupdate.simple.composeapp.generated.resources.stop
 import composecheckforupdate.simple.composeapp.generated.resources.theme
 import io.github.sample.theme.AppTheme
 import io.github.sample.theme.LocalThemeIsDark
-import io.github.tbib.compose_check_for_update.CheckForUpdateDialog
+import io.github.tbib.compose_check_for_update.isUpdateAvailable
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 internal fun App() = AppTheme {
-    CheckForUpdateDialog(
-        forceUpdate = true,
-        title = "Update Here",
-        message = "A new update please update now to continue"
-    )
+//    CheckForUpdateDialog(
+//        forceUpdate = true,
+//        title = "Update Here",
+//        message = "A new update please update now to continue"
+//    )
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        scope.launch {
+            val isUpdateAvailable = isUpdateAvailable()
+            println("new update available $isUpdateAvailable")
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()

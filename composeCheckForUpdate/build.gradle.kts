@@ -43,7 +43,7 @@ tasks.withType<PublishToMavenRepository> {
 
 extra["groupId"] = "io.github.the-best-is-best"
 extra["artifactId"] = "compose-check-for-update"
-extra["version"] = "1.0.0"
+extra["version"] = "1.0.1"
 extra["packageName"] = "ComposeCheckForUpdate"
 extra["packageUrl"] = "https://github.com/the-best-is-best/checkForUpdateCompose"
 extra["packageDescription"] = "The ComposeCheckForUpdate package provides a seamless solution for implementing update checking functionality in Jetpack Compose applications on both Android and iOS platforms. This package simplifies the process of checking for app updates, ensuring that users always have access to the latest features and improvements."
@@ -150,7 +150,7 @@ kotlin {
         noPodspec()
         ios.deploymentTarget = "12.0"
         pod("KUpdater") {
-            version = "0.1.5"
+            version = "0.1.6"
             extraOpts += listOf("-compiler-option", "-fmodules")
 
         }
