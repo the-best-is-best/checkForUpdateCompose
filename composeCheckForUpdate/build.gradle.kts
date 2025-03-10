@@ -15,7 +15,9 @@ plugins {
     id("maven-publish")
     id("signing")
     alias(libs.plugins.maven.publish)
-    alias(libs.plugins.kotlin.cocoapods)
+    id("io.github.ttypic.swiftklib") version "0.6.4"
+
+//    alias(libs.plugins.kotlin.cocoapods)
 }
 
 
@@ -43,7 +45,7 @@ tasks.withType<PublishToMavenRepository> {
 
 extra["groupId"] = "io.github.the-best-is-best"
 extra["artifactId"] = "compose-check-for-update"
-extra["version"] = "1.0.1"
+extra["version"] = "1.0.2"
 extra["packageName"] = "ComposeCheckForUpdate"
 extra["packageUrl"] = "https://github.com/the-best-is-best/checkForUpdateCompose"
 extra["packageDescription"] = "The ComposeCheckForUpdate package provides a seamless solution for implementing update checking functionality in Jetpack Compose applications on both Android and iOS platforms. This package simplifies the process of checking for app updates, ensuring that users always have access to the latest features and improvements."
@@ -125,36 +127,32 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
+        iosSimulatorArm64(),
+//        macosX64(),
+//        macosArm64(),
+//        tvosX64(),
+//        tvosArm64(),
+//        tvosSimulatorArm64(),
+//        watchosArm32(),
+//        watchosX64(),
+//        watchosArm64(),
+//        watchosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
             baseName = "composeCheckForUpdate"
             isStatic = true
         }
-    }
 
-    cocoapods {
-        // Required properties
-        // Specify the required Pod version here. Otherwise, the Gradle project version is used.
-        version = "1.0"
-        summary = "Some description for a Kotlin/Native module"
-        homepage = "Link to a Kotlin/Native module homepage"
-
-        name = "composeCheckForUpdate"
-
-        framework {
-            baseName = "composeCheckForUpdate"
-
-            isStatic = false
-        }
-        noPodspec()
-        ios.deploymentTarget = "12.0"
-        pod("KUpdater") {
-            version = "0.1.6"
-            extraOpts += listOf("-compiler-option", "-fmodules")
-
+        it.compilations {
+            val main by getting {
+                cinterops {
+                    create("KUpdater")
+                }
+            }
         }
     }
+
 
     sourceSets {
         all {
@@ -252,5 +250,12 @@ compose.desktop {
                 bundleID = "org.company.app.desktopApp"
             }
         }
+    }
+}
+
+swiftklib {
+    create("KUpdater") {
+        path = file("native/kupdater")
+        packageName("io.github.native.kupdater")
     }
 }

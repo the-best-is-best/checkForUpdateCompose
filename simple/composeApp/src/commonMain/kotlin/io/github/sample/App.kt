@@ -48,6 +48,7 @@ import composecheckforupdate.simple.composeapp.generated.resources.stop
 import composecheckforupdate.simple.composeapp.generated.resources.theme
 import io.github.sample.theme.AppTheme
 import io.github.sample.theme.LocalThemeIsDark
+import io.github.tbib.compose_check_for_update.CheckForUpdateDialog
 import io.github.tbib.compose_check_for_update.isUpdateAvailable
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.Font
@@ -56,18 +57,21 @@ import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 internal fun App() = AppTheme {
-//    CheckForUpdateDialog(
-//        forceUpdate = true,
-//        title = "Update Here",
-//        message = "A new update please update now to continue"
-//    )
-    val scope = rememberCoroutineScope()
 
+    val scope = rememberCoroutineScope()
+    var isUpdateAvailable by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         scope.launch {
-            val isUpdateAvailable = isUpdateAvailable()
+            isUpdateAvailable = isUpdateAvailable()
             println("new update available $isUpdateAvailable")
         }
+    }
+    if (isUpdateAvailable) {
+        CheckForUpdateDialog(
+            forceUpdate = true,
+            title = "Update Here",
+            message = "A new update please update now to continue"
+        )
     }
     Column(
         modifier = Modifier

@@ -60,9 +60,9 @@ kotlin {
             implementation(libs.androidx.activityCompose)
         }
 
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
+//        jvmMain.dependencies {
+//            implementation(compose.desktop.currentOs)
+//        }
 
         iosMain.dependencies {
         }
