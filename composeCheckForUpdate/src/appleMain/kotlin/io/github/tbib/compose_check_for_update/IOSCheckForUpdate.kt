@@ -7,12 +7,17 @@ import kotlinx.cinterop.ExperimentalForeignApi
 object IOSCheckForUpdate {
     internal val kUpdater = KUpdater.shared()
 
-    fun init(isTestFlight: Boolean = false, authorization: String? = null) {
+    fun init(isTestFlight: Boolean = false, authorization: String? = null, countryCode:String?, appStoreId:String?) {
         if (isTestFlight && authorization == null) {
             throw IllegalArgumentException("Authorization is required for TestFlight")
         }
+        if (isTestFlight && appStoreId == null) {
+            throw IllegalArgumentException("App Store ID is required for TestFlight")
+        }
         kUpdater.setIsTestFlight(isTestFlight)
         kUpdater.setAuthorizationTestFlight(authorization)
+        kUpdater.setCountryCode(countryCode)
+        kUpdater.setAppStoreId(appStoreId)
 
     }
 }

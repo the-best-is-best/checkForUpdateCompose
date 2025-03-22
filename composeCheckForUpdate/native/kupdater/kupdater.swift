@@ -35,9 +35,10 @@ struct AppInfo: Decodable {
     // MARK: - TestFlight variable
     @objc public var isTestFlight: Bool = false
     @objc public var authorizationTestFlight:String? = nil
+    @objc public var countryCode:String? = nil
 
 
-    var appStoreId:String? = nil
+   @objc public var appStoreId:String? = nil
 
     static var forceUpdate:Bool = false
 
@@ -156,10 +157,9 @@ struct AppInfo: Decodable {
     }
 
     private func getUrl(from identifier: String) -> String {
-        // You should pay attention on the country that your app is located, in my case I put Brazil */br/*
-        // Você deve prestar atenção em que país o app está disponível, no meu caso eu coloquei Brasil */br/*
+        let region = countryCode ?? Locale.current.regionCode ?? "us" // إذا لم يتم توفير رمز البلد، استخدم البلد الافتراضي
         let testflightURL = "https://api.appstoreconnect.apple.com/v1/apps/\(String(describing: KUpdater.shared.appStoreId))/builds"
-        let appStoreURL = "http://itunes.apple.com/br/lookup?bundleId=\(identifier)"
+    let appStoreURL = "http://itunes.apple.com/\(region)/lookup?bundleId=\(identifier)"
 
         return isTestFlight ? testflightURL : appStoreURL
     }
