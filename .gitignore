@@ -17,3 +17,15 @@ Pods/
 /simple/composeApp/release/
 /simple/iosApp/Podfile.lock
 /simple/iosApp/Podfile
+/composeCheckForUpdate/native/iosArm64.def
+/composeCheckForUpdate/native/iosSimulatorArm64.def
+/composeCheckForUpdate/native/iosX64.def
+/composeCheckForUpdate/native/macosArm64.def
+/composeCheckForUpdate/native/macosX64.def
+/composeCheckForUpdate/native/tvosArm64.def
+/composeCheckForUpdate/native/tvosSimulatorArm64.def
+/composeCheckForUpdate/native/tvosX64.def
+/composeCheckForUpdate/native/watchosArm32.def
+/composeCheckForUpdate/native/watchosArm64.def
+/composeCheckForUpdate/native/watchosSimulatorArm64.def
+/composeCheckForUpdate/native/watchosX64.def

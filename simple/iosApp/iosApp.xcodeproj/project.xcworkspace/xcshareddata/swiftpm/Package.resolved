@@ -1,0 +1,15 @@
+{
+  "originHash" : "81a65306d6c1204a683360edaab3e25da273ca1d5bc7a2f2a9ff154859fec96a",
+  "pins" : [
+    {
+      "identity" : "kupdater",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/the-best-is-best/Kupdater",
+      "state" : {
+        "revision" : "c43156bbb1f2e2bcddce5744065cfb58ab03eb38",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
