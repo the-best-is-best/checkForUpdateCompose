@@ -3,7 +3,6 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
@@ -15,8 +14,6 @@ plugins {
     id("maven-publish")
     id("signing")
     alias(libs.plugins.maven.publish)
-
-//    alias(libs.plugins.kotlin.cocoapods)
 }
 
 
@@ -44,7 +41,7 @@ tasks.withType<PublishToMavenRepository> {
 
 extra["groupId"] = "io.github.the-best-is-best"
 extra["artifactId"] = "compose-check-for-update"
-extra["version"] = "1.0.3"
+extra["version"] = "1.0.4"
 extra["packageName"] = "ComposeCheckForUpdate"
 extra["packageUrl"] = "https://github.com/the-best-is-best/checkForUpdateCompose"
 extra["packageDescription"] = "The ComposeCheckForUpdate package provides a seamless solution for implementing update checking functionality in Jetpack Compose applications on both Android and iOS platforms. This package simplifies the process of checking for app updates, ensuring that users always have access to the latest features and improvements."
@@ -190,8 +187,6 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
         }
 
         commonTest.dependencies {
@@ -224,7 +219,7 @@ kotlin {
 
 android {
     namespace = "org.company.app"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 21
@@ -235,40 +230,6 @@ android {
         buildFeatures {
             //enables a Compose tooling support in the AndroidStudio
             compose = true
-        }
-    }
-}
-
-//https://developer.android.com/develop/ui/compose/testing#setup
-dependencies {
-
-    androidTestImplementation(libs.androidx.uitest.junit4)
-    debugImplementation(libs.androidx.uitest.testManifest)
-    //temporary fix: https://youtrack.jetbrains.com/issue/CMP-5864
-    androidTestImplementation("androidx.test:monitor") {
-        version { strictly("1.6.1") }
-    }
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "ComposeApp"
-            packageVersion = "1.0.0"
-
-            linux {
-                iconFile.set(project.file("desktopAppIcons/LinuxIcon.png"))
-            }
-            windows {
-                iconFile.set(project.file("desktopAppIcons/WindowsIcon.ico"))
-            }
-            macOS {
-                iconFile.set(project.file("desktopAppIcons/MacosIcon.icns"))
-                bundleID = "org.company.app.desktopApp"
-            }
         }
     }
 }
