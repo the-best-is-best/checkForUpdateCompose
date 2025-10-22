@@ -73,11 +73,11 @@ kotlin {
 
 android {
     namespace = "io.github.sample"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
 
         applicationId = "com.hardihood.two_square_game"
         versionCode = 44

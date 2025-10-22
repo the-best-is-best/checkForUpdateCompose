@@ -21,7 +21,7 @@ KAdmob is available on `mavenCentral()`.
 ## Install
 
 ```kotlin
-implementation("io.github.the-best-is-best:compose-check-for-update:1.0.4")
+implementation("io.github.the-best-is-best:compose-check-for-update:1.2.0")
 ```
 
 ### ✅ **Install via SPM

@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/the-best-is-best/Kupdater",
       "state" : {
-        "revision" : "c43156bbb1f2e2bcddce5744065cfb58ab03eb38",
-        "version" : "0.1.0"
+        "branch" : "main",
+        "revision" : "fb53cc744503030b18183bb077c3c522832edc53"
       }
     }
   ],

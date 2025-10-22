@@ -1,6 +1,5 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
-import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -41,7 +40,7 @@ tasks.withType<PublishToMavenRepository> {
 
 extra["groupId"] = "io.github.the-best-is-best"
 extra["artifactId"] = "compose-check-for-update"
-extra["version"] = "1.0.4"
+extra["version"] = "1.2.0"
 extra["packageName"] = "ComposeCheckForUpdate"
 extra["packageUrl"] = "https://github.com/the-best-is-best/checkForUpdateCompose"
 extra["packageDescription"] = "The ComposeCheckForUpdate package provides a seamless solution for implementing update checking functionality in Jetpack Compose applications on both Android and iOS platforms. This package simplifies the process of checking for app updates, ensuring that users always have access to the latest features and improvements."
@@ -61,7 +60,7 @@ mavenPublishing {
         extra["version"].toString()
     )
 
-    publishToMavenCentral(SonatypeHost.S01, true)
+    publishToMavenCentral(true)
     signAllPublications()
 
     pom {
@@ -187,6 +186,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(libs.savedstate.compose)
         }
 
         commonTest.dependencies {
@@ -250,33 +250,33 @@ abstract class GenerateDefFilesTask : DefaultTask() {
         interopDir.get().asFile.mkdirs()
 
         // Constants
-        val firebaseMessagingHeaders = "KUpdater-Swift.h"
+        val kupdaterHeader = "KUpdater-Swift.h"
 
         // Map targets to their respective paths
         val targetToPath = mapOf(
             "iosX64" to "ios-arm64_x86_64-simulator",
             "iosArm64" to "ios-arm64",
             "iosSimulatorArm64" to "ios-arm64_x86_64-simulator",
-            "macosX64" to "macos-arm64_x86_64",
-            "macosArm64" to "macos-arm64_x86_64",
-            "tvosArm64" to "tvos-arm64",
-            "tvosX64" to "tvos-arm64_x86_64-simulator",
-            "tvosSimulatorArm64" to "tvos-arm64_x86_64-simulator",
-            "watchosSimulatorArm64" to "watchos-arm64_x86_64-simulator",
-            "watchosX64" to "watchos-arm64_arm64_32",
-            "watchosArm32" to "watchos-arm64_arm64_32",
-            "watchosArm64" to "watchos-arm64_arm64_32",
+//            "macosX64" to "macos-arm64_x86_64",
+//            "macosArm64" to "macos-arm64_x86_64",
+//            "tvosArm64" to "tvos-arm64",
+//            "tvosX64" to "tvos-arm64_x86_64-simulator",
+//            "tvosSimulatorArm64" to "tvos-arm64_x86_64-simulator",
+//            "watchosSimulatorArm64" to "watchos-arm64_x86_64-simulator",
+//            "watchosX64" to "watchos-arm64_arm64_32",
+//            "watchosArm32" to "watchos-arm64_arm64_32",
+//            "watchosArm64" to "watchos-arm64_arm64_32",
         )
 
         // Helper function to generate header paths
-        fun headerPath(target: String): String {
-            return interopDir.dir("libs/${targetToPath[target]}/$firebaseMessagingHeaders")
+        fun headerPath(): String {
+            return interopDir.dir("libs/$kupdaterHeader")
                 .get().asFile.absolutePath
         }
 
         // Generate headerPaths dynamically
         val headerPaths = targetToPath.mapValues { (target, _) ->
-            headerPath(target)
+            headerPath()
         }
 
         // List of targets derived from targetToPath keys
