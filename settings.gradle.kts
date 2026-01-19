@@ -31,4 +31,5 @@ dependencyResolutionManagement {
     }
 }
 include(":composeCheckForUpdate")
-include(":simple:composeApp")
+include(":simple:sharedUI")
+include(":simple:androidSimple")
