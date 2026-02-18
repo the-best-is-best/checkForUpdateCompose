@@ -17,21 +17,19 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
 
 @Composable
 actual fun CheckForUpdateDialog(forceUpdate: Boolean, title: String?, message: String?) {
     var showUpdateDialog by remember { mutableStateOf(false) }
 
     val appUpdateManager: AppUpdateManager =
-        AppUpdateManagerFactory.create(AndroidCheckForUpdate.getActivity())
+        AppUpdateManagerFactory.create(ComposeCheckForUpdate.getActivity())
     val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
     // Check if there's an update available
     LaunchedEffect(Unit) {
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            println("Check for update info ${appUpdateInfo}")
+            println("Check for update info $appUpdateInfo")
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
                 showUpdateDialog = true
             }
@@ -50,7 +48,7 @@ actual fun CheckForUpdateDialog(forceUpdate: Boolean, title: String?, message: S
             title = title,
             message = message,
             onUpdate = {
-                startUpdateFlow(AndroidCheckForUpdate.getActivity(), appUpdateManager, forceUpdate)
+                startUpdateFlow(ComposeCheckForUpdate.getActivity(), appUpdateManager, forceUpdate)
             },
             onCancel = {
                     showUpdateDialog = false // Dismiss the dialog if it's not a forced update
@@ -123,22 +121,6 @@ private fun startUpdateFlow(
                 Toast.makeText(activity, "App updated. Please restart the app.", Toast.LENGTH_LONG)
                     .show()
             }
-        }
-    }
-}
-
-actual suspend fun isUpdateAvailable(): Boolean {
-    val appUpdateManager: AppUpdateManager =
-        AppUpdateManagerFactory.create(AndroidCheckForUpdate.getActivity())
-    val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-
-    return suspendCancellableCoroutine { continuation ->
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            val isAvailable =
-                appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-            continuation.resume(isAvailable)
-        }.addOnFailureListener {
-            continuation.resume(false) // Return false if there's an error
         }
     }
 }

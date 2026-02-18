@@ -305,15 +305,18 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class NSString;
 SWIFT_CLASS("_TtC8KUpdater8KUpdater")
 @interface KUpdater : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) KUpdater * _Nonnull shared;)
++ (KUpdater * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 @property (nonatomic) BOOL isTestFlight;
 @property (nonatomic, copy) NSString * _Nullable authorizationTestFlight;
 @property (nonatomic, copy) NSString * _Nullable countryCode;
 @property (nonatomic, copy) NSString * _Nullable appStoreId;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) KUpdater * _Nonnull shared;)
-+ (KUpdater * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+/// Checks version and presents a UI Alert automatically if an update is found.
 - (void)showUpdateWithForceUpdate:(BOOL)forceUpdate title:(NSString * _Nullable)title message:(NSString * _Nullable)message;
+/// Checks version and returns a boolean via completion handler. No UI is shown.
 - (void)isUpdateAvailableWithCompletion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 #endif

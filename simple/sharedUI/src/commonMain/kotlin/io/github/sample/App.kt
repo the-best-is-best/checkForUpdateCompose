@@ -49,7 +49,8 @@ import composecheckforupdate.simple.sharedui.generated.resources.theme
 import io.github.sample.theme.AppTheme
 import io.github.sample.theme.LocalThemeIsDark
 import io.github.tbib.compose_check_for_update.CheckForUpdateDialog
-import io.github.tbib.compose_check_for_update.isUpdateAvailable
+import io.github.tbib.kmm_check_for_update.ComposeCheckForUpdate
+import io.github.tbib.kmm_check_for_update.isUpdateAvailable
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
@@ -62,7 +63,7 @@ fun App() = AppTheme {
     var isUpdateAvailable by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         scope.launch {
-            isUpdateAvailable = isUpdateAvailable()
+            isUpdateAvailable = ComposeCheckForUpdate.isUpdateAvailable()
             println("new update available $isUpdateAvailable")
         }
     }

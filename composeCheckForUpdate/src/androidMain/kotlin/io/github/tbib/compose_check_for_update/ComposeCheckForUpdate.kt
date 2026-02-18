@@ -3,7 +3,7 @@ package io.github.tbib.compose_check_for_update
 import android.app.Activity
 import java.lang.ref.WeakReference
 
-object AndroidCheckForUpdate {
+object ComposeCheckForUpdate {
     private var activity: WeakReference<Activity?> = WeakReference(null)
 
     internal fun getActivity(): Activity {

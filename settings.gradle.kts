@@ -14,6 +14,9 @@ pluginManagement {
         mavenCentral()
     }
 }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
 
 dependencyResolutionManagement {
     repositories {
@@ -33,3 +36,4 @@ dependencyResolutionManagement {
 include(":composeCheckForUpdate")
 include(":simple:sharedUI")
 include(":simple:androidSimple")
+include(":kmm_check_for_update")

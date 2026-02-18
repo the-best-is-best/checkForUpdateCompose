@@ -1,11 +1,11 @@
-package io.github.tbib.compose_check_for_update
+package io.github.tbib.kmm_check_for_update
 
 import io.github.native.kupdater.KUpdater
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
 object IOSCheckForUpdate {
-    internal val kUpdater = KUpdater.shared()
+    val kUpdater = KUpdater.shared()
 
     fun init(
         isTestFlight: Boolean = false,

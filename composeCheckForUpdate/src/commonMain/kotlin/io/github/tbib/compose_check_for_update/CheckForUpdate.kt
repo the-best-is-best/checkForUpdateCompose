@@ -8,5 +8,3 @@ expect fun CheckForUpdateDialog(
     title: String? = null,
     message: String? = null
 )
-
-expect suspend fun isUpdateAvailable(): Boolean
